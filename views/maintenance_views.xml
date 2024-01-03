@@ -13,4 +13,23 @@
         </field>
     </record>
 
+    <record id="hr_equipment_request_view_form_inherited" model="ir.ui.view">
+        <field name="name">hr.equipment.request.view.form.inherited</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='reset_equipment_request']" position="after">
+                <button type="object" name="create_repair_order" string="Create Repair order" class="oe_highlight"
+                    attrs="{'invisible':[('repair_ids_count','>',0)]}"/>
+                <button type="object" name="create_repair_order" string="Create Repair order"
+                    attrs="{'invisible':[('repair_ids_count','=',0)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="repair_ids_count" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
 </odoo>
