@@ -57,3 +57,11 @@ class MaintenanceRequest(models.Model):
             'location_id':warehouse.lot_stock_id.id
         }
 
+    def action_view_repair_ids(self):
+        return {
+            'res_model': 'repair.order',
+            'type': 'ir.actions.act_window',
+            'name': _("Repair orders"),
+            'domain': [('id', 'in', self.repair_ids.ids)],
+            'view_mode': 'tree,form',
+        }

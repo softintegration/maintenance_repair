@@ -18,6 +18,20 @@
         <field name="model">maintenance.request</field>
         <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_right')]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" name="action_view_repair_ids" type="object"
+                                    icon="fa-wrench" attrs="{'invisible': [('repair_ids_count', '=', 0)]}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="repair_ids_count"/>
+                                <span>Repair</span>
+                            </span>
+                            <span class="o_stat_text">orders</span>
+                        </div>
+                    </button>
+                </div>
+            </xpath>
             <xpath expr="//button[@name='reset_equipment_request']" position="after">
                 <button type="object" name="create_repair_order" string="Create Repair order" class="oe_highlight"
                     attrs="{'invisible':[('repair_ids_count','>',0)]}"/>
