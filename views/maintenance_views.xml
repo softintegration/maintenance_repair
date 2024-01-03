@@ -10,6 +10,18 @@
             <xpath expr="//field[@name='serial_no']" position="after">
                 <field name="product_id" />
             </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" name="action_view_repair_ids" type="object"
+                                    icon="fa-wrench" attrs="{'invisible': [('repair_ids_count', '=', 0)]}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="repair_ids_count"/>
+                                <span>Repair</span>
+                            </span>
+                            <span class="o_stat_text">orders</span>
+                        </div>
+                    </button>
+            </xpath>
         </field>
     </record>
 

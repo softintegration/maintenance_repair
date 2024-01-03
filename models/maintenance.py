@@ -13,6 +13,27 @@ class MaintenanceEquipment(models.Model):
     _inherit = 'maintenance.equipment'
 
     product_id = fields.Many2one('product.product',string='Product',index=True,domain=[('type','!=','service')])
+    repair_ids = fields.One2many('repair.order', compute='_compute_repair_ids')
+    repair_ids_count = fields.Integer(compute='_compute_repair_ids_count')
+
+    def _compute_repair_ids(self):
+        domain = [('equipment_id','in',self.ids)]
+        self.repair_ids = self.env['maintenance.request'].search(domain).mapped("repair_ids")
+
+    @api.depends('repair_ids')
+    def _compute_repair_ids_count(self):
+        for each in self:
+            each.repair_ids_count = len(each.repair_ids)
+
+
+    def action_view_repair_ids(self):
+        return {
+            'res_model': 'repair.order',
+            'type': 'ir.actions.act_window',
+            'name': _("Repair orders"),
+            'domain': [('id', 'in', self.repair_ids.ids)],
+            'view_mode': 'tree,form',
+        }
 
 
 class MaintenanceRequest(models.Model):
